@@ -1,0 +1,22 @@
+{
+  "name": "food-product",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnatoliiMikhov/food-product.git"
+  },
+  "author": "Anatolii Mikhov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnatoliiMikhov/food-product/issues"
+  },
+  "homepage": "https://github.com/AnatoliiMikhov/food-product#readme",
+  "devDependencies": {
+    "json-server": "^0.16.1"
+  }
+}
