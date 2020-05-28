@@ -20,3 +20,12 @@
         opacity: 1;
     }
 }
+
+.menu .container {
+    flex-wrap: wrap;
+}
+
+.menu__item {
+    min-height: 487px;
+    margin-bottom: 20px;
+}
