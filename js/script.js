@@ -359,6 +359,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		} else {
 			current.textContent = slideIndex;
 		}
+
+		sliderAnimation();
 	});
 
 	prev.addEventListener('click', () => {
@@ -381,6 +383,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		} else {
 			current.textContent = slideIndex;
 		}
+
+		sliderAnimation();
 	});
+
+	function sliderAnimation() {
+		slides.forEach((slide, i) => {
+			slide.style.width = width;
+			if (i == (slideIndex - 1)) {
+				slide.classList.add('fade');
+			} else {
+				slide.classList.remove('fade');
+			}
+		});
+	}
 
 });
