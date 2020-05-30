@@ -310,6 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	/* --------------------------------- Slider --------------------------------- */
 	// Slider ver2.0
 	const slides = document.querySelectorAll('.offer__slide'),
+		slider = document.querySelector('.offer__slider'),
 		prev = document.querySelector('.offer__slider-prev'),
 		next = document.querySelector('.offer__slider-next'),
 		current = document.querySelector('#current'),
@@ -339,6 +340,26 @@ document.addEventListener('DOMContentLoaded', () => {
 		slide.style.width = width;
 	});
 
+	slider.style.position = 'relative';
+
+	const indicators = document.createElement('ol');
+	indicators.classList.add('carousel-indicators');
+	slider.append(indicators);
+
+	const dots = [];
+	for (let i = 0; i < slides.length; i++) {
+
+		const dot = document.createElement('li');
+		dot.setAttribute('data-slide-to', i + 1);
+		dot.classList.add('dot');
+
+		if (i == 0) {
+			dot.style.opacity = 1;
+		}
+		indicators.append(dot);
+		dots.push(dot);
+	}
+
 	next.addEventListener('click', () => {
 		if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
 			offset = 0;
@@ -346,20 +367,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			offset += +width.slice(0, width.length - 2);
 		}
 
-		slidesField.style.transform = `translateX(-${offset}px)`;
-
 		if (slideIndex == slides.length) {
 			slideIndex = 1;
 		} else {
 			slideIndex++;
 		}
 
-		if (slideIndex < 10) {
-			current.textContent = `0${slideIndex}`;
-		} else {
-			current.textContent = slideIndex;
-		}
-
+		setTranslation(slidesField, offset);
+		setCurrentSlide(slideIndex, current);
+		setOpacityDots(dots, slideIndex);
 		sliderAnimation();
 	});
 
@@ -370,22 +386,34 @@ document.addEventListener('DOMContentLoaded', () => {
 			offset -= +width.slice(0, width.length - 2);
 		}
 
-		slidesField.style.transform = `translateX(-${offset}px)`;
-
 		if (slideIndex == 1) {
 			slideIndex = slides.length;
 		} else {
 			slideIndex--;
 		}
 
-		if (slideIndex < 10) {
-			current.textContent = `0${slideIndex}`;
-		} else {
-			current.textContent = slideIndex;
-		}
-
+		setTranslation(slidesField, offset);
+		setCurrentSlide(slideIndex, current);
+		setOpacityDots(dots, slideIndex);
 		sliderAnimation();
 	});
+
+	dots.forEach(dot => {
+		dot.addEventListener('click', (e) => {
+			const slideTo = e.target.getAttribute('data-slide-to');
+			slideIndex = slideTo;
+			offset = +width.slice(0, width.length - 2) * (slideTo - 1);
+
+			setTranslation(slidesField, offset);
+			setCurrentSlide(slideIndex, current);
+			setOpacityDots(dots, slideIndex);
+			sliderAnimation();
+		});
+	});
+
+	function setTranslation(slidesField, offset) {
+		slidesField.style.transform = `translateX(-${offset}px)`;
+	}
 
 	function sliderAnimation() {
 		slides.forEach((slide, i) => {
@@ -396,6 +424,20 @@ document.addEventListener('DOMContentLoaded', () => {
 				slide.classList.remove('fade');
 			}
 		});
+	}
+
+	function setOpacityDots(dots, slideIndex) {
+		dots.forEach(dot => dot.style.opacity = '.5');
+		dots[slideIndex - 1].style.opacity = 1;
+	}
+
+	function setCurrentSlide(slideIndex, current) {
+		if (slideIndex < 10) {
+			current.textContent = `0${slideIndex}`;
+		}
+		else {
+			current.textContent = slideIndex;
+		}
 	}
 
 });
