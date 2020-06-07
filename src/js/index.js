@@ -1,5 +1,8 @@
 "use strict";
 
+require("es6-promise").polyfill();
+import "nodelist-foreach-polyfill";
+
 import tabs from "./modules/tabs";
 import modal from "./modules/modal";
 import timer from "./modules/timer";
@@ -28,6 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		totalCounter: "#total",
 		currentCounter: "#current",
 		wrapper: ".offer__slider-wrapper",
-		field: ".offer_slide-inner"
+		field: ".offer_slide-inner",
 	});
 });
