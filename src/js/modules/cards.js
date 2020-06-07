@@ -1,6 +1,8 @@
 'use strict';
 
-function cards() {
+import { getResource } from '../services/services';
+
+function cards(rate) {
     // Menu Card
     class MenuCard {
         constructor(src, alt, title, descr, price, parentSelector, ...classes) {
@@ -11,12 +13,12 @@ function cards() {
             this.price = price;
             this.classes = classes;
             this.parent = document.querySelector(parentSelector);
-            this.transfer = 27;
+            this.rate = rate;
             this.changeToUAN();
         }
 
         changeToUAN() {
-            this.price = this.price * this.transfer;
+            this.price = this.price * this.rate;
         }
 
         render() {
@@ -46,11 +48,19 @@ function cards() {
         }
     }
 
-    axios.get("http://localhost:3000/menu").then((data) => {
+    getResource('http://localhost:3000/menu')
+        .then(data => {
+            data.forEach(({ img, altimg, title, descr, price }) => {
+                new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+            });
+        });
+
+    // Axios usage
+    /* axios.get("http://localhost:3000/menu").then((data) => {
         data.data.forEach(({ img, altimg, title, descr, price }) => {
             new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
         });
-    });
+    }); */
 }
 
-module.exports = cards;
+export default cards;

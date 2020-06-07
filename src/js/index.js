@@ -1,22 +1,33 @@
-document.addEventListener('DOMContentLoaded', () => {
+"use strict";
 
-    'use strict';
+import tabs from "./modules/tabs";
+import modal from "./modules/modal";
+import timer from "./modules/timer";
+import calc from "./modules/calc";
+import cards from "./modules/cards";
+import forms from "./modules/forms";
+import slider from "./modules/slider";
+import { openModal } from "./modules/modal";
 
-    const tabs = require('./modules/tabs'),
-        modal = require('./modules/modal'),
-        timer = require('./modules/timer'),
-        calc = require('./modules/calc'),
-        cards = require('./modules/cards'),
-        forms = require('./modules/forms'),
-        slider = require('./modules/slider');
+document.addEventListener("DOMContentLoaded", () => {
+	const modalTimerId = setTimeout(() => openModal(".modal", modalTimerId), 600000);
+	// const diffTime = Math.abs(new Date().getTimezoneOffset() / 60);
+	// const deadline = `2020-07-24T00:00:00+0${diffTime}:00`;
 
-    tabs();
-    modal();
-    timer();
-    calc();
-    cards();
-    forms();
-    slider();
-
-
+	tabs(".tabcontainer", ".tabheader__item", ".tabcontent", "tabheader__item_active");
+	modal("[data-modal]", ".modal", modalTimerId);
+	timer(".timer", "2020-07-08T00:00:00");
+	calc();
+	cards(26);
+	forms(modalTimerId, "form");
+	slider({
+		container: ".offer__slider",
+		nextArrow: ".offer__slider-next",
+		prevArrow: ".offer__slider-prev",
+		slide: ".offer__slide",
+		totalCounter: "#total",
+		currentCounter: "#current",
+		wrapper: ".offer__slider-wrapper",
+		field: ".offer_slide-inner"
+	});
 });
