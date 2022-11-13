@@ -28,7 +28,7 @@
     "core-js": "^3.6.5",
     "json-server": "^0.16.1",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.1",
